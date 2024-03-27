@@ -1,15 +1,14 @@
 package com.cvmaster.fileidlerm.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.cvmaster.fileidlerm.entity.FileRmIgnoreDirectory;
+import xyz.erupt.annotation.fun.DataProxy;
 
 /**
- * @desc 文件目录忽略(FileRmIgnoreDirectory)表服务接口
- * @author cvmaster
- * @version v.1.0.0
- * @create 2023-06-12 21:02:58
- */
-public interface FileRmIgnoreDirectoryService extends IService<FileRmIgnoreDirectory> {
-
+ * @ClassName:FileRmIgnoreDirectoryService
+ * @Desc:TODO
+ * @Author: wenchao
+ * @CreateTime:2024/3/1 16:19
+ * @Version:1.0
+ **/
+public class FileRmIgnoreDirectoryService implements DataProxy<FileRmIgnoreDirectory> {
 }
-

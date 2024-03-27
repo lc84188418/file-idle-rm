@@ -1,6 +1,6 @@
 package com.cvmaster.fileidlerm.utils;
 
-import com.cvmaster.fileidlerm.entity.FileRmLogs;
+import com.cvmaster.fileidlerm.entity.FileRmLog;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.quartz.JobExecutionException;
@@ -121,14 +121,14 @@ public class FileUtil {
     }
 
     /**
-    *@desc: 该方法有问题
-    *@author: wenchao
-    *@createTime: 2023/6/12/012 0:52
-    *@param: [copyFileList, rootDirectory, rollbackPath]
-    *@version: 1.0.0.v
-    *@return: void
-    **/
-    public static Set<String> copyAndRemoveFile(List<String> copyFileList,String rootDirectory,String rollbackPath,FileRmLogs fileRmLogs) throws JobExecutionException {
+     *@desc: 该方法有问题
+     *@author: wenchao
+     *@createTime: 2023/6/12/012 0:52
+     *@param: [copyFileList, rootDirectory, rollbackPath]
+     *@version: 1.0.0.v
+     *@return: void
+     **/
+    public static Set<String> copyAndRemoveFile(List<String> copyFileList, String rootDirectory, String rollbackPath, FileRmLog fileRmLogs) throws JobExecutionException {
         if(CollectionUtils.isEmpty(copyFileList)){
             log.info("The set of files to be copied is empty");
             return null;
@@ -137,8 +137,8 @@ public class FileUtil {
         invokeMkdirs(rollbackPath);
         //拷贝失败的文件
         Set<String> copyFailFileList = new HashSet<>();
-        int successCount = 0;
-        int failCount = 0;
+        long successCount = 0;
+        long failCount = 0;
         for (String path : copyFileList) {
             try {
                 String copyPath = path.replace(rootDirectory,rollbackPath);
@@ -162,18 +162,18 @@ public class FileUtil {
         log.info("All files have been copied. success:{},fail:{}",successCount,failCount);
         return copyFailFileList;
     }
-    public static FileRmLogs moveFile(List<String> copyFileList, String rootDirectory, String rollbackPath) throws JobExecutionException {
-        FileRmLogs fileRmLogs = new FileRmLogs();
+    public static FileRmLog moveFile(List<String> copyFileList, String rootDirectory, String rollbackPath) throws JobExecutionException {
+        FileRmLog fileRmLogs = new FileRmLog();
         if(CollectionUtils.isEmpty(copyFileList)){
             log.info("The set of files to be copied is empty");
-            fileRmLogs.setTotalCount(copyFileList.size()).setSuccessCount(0).setFailCount(0);
+            fileRmLogs.setTotalCount(Long.valueOf(copyFileList.size())).setSuccessCount(0L).setFailCount(0L);
             return fileRmLogs;
         }
         //先判断回滚的路径是否存在，没有的话创建该目录
         invokeMkdirs(rollbackPath);
 
-        int successCount = 0;
-        int failCount = 0;
+        long successCount = 0;
+        long failCount = 0;
         for (String path : copyFileList) {
             try {
                 String copyPath = path.replace(rootDirectory,rollbackPath);
@@ -189,7 +189,7 @@ public class FileUtil {
             }
         }
         log.info("All files have been copied. success:{},fail:{}",successCount,failCount);
-        fileRmLogs.setTotalCount(copyFileList.size()).setSuccessCount(successCount).setFailCount(failCount);
+        fileRmLogs.setTotalCount(Long.valueOf(copyFileList.size())).setSuccessCount(successCount).setFailCount(failCount);
         return fileRmLogs;
     }
 
@@ -233,15 +233,15 @@ public class FileUtil {
         return null;
     }
 
-    public static FileRmLogs removeFile(List<String> deleteFileList) {
-        FileRmLogs fileRmLogs = new FileRmLogs();
+    public static FileRmLog removeFile(List<String> deleteFileList) {
+        FileRmLog fileRmLogs = new FileRmLog();
         if(CollectionUtils.isEmpty(deleteFileList)){
             log.info("The set of files to be deleted is empty");
-            fileRmLogs.setTotalCount(deleteFileList.size()).setSuccessCount(0).setFailCount(0);
+            fileRmLogs.setTotalCount(Long.valueOf(deleteFileList.size())).setSuccessCount(0L).setFailCount(0L);
             return fileRmLogs;
         }
-        int successCount = 0;
-        int failCount = 0;
+        long successCount = 0;
+        long failCount = 0;
         for (String path : deleteFileList) {
             try {
                 new File(path).delete();
@@ -252,7 +252,7 @@ public class FileUtil {
             }
         }
         log.info("All files have been deleted. success:{},fail:{}",successCount,failCount);
-        fileRmLogs.setTotalCount(deleteFileList.size()).setSuccessCount(successCount).setFailCount(failCount);
+        fileRmLogs.setTotalCount(Long.valueOf(deleteFileList.size())).setSuccessCount(successCount).setFailCount(failCount);
         return fileRmLogs;
     }
 

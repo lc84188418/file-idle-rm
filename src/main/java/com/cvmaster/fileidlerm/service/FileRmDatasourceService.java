@@ -1,15 +1,14 @@
 package com.cvmaster.fileidlerm.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.cvmaster.fileidlerm.entity.FileRmDatasource;
+import xyz.erupt.annotation.fun.DataProxy;
 
 /**
- * @desc (FileRmDatasource)表服务接口
- * @author cvmaster
- * @version v.1.0.0
- * @create 2023-06-12 01:05:13
- */
-public interface FileRmDatasourceService extends IService<FileRmDatasource> {
-
+ * @ClassName:FileRmDatasourceService
+ * @Desc:TODO
+ * @Author: wenchao
+ * @CreateTime:2024/3/1 15:40
+ * @Version:1.0
+ **/
+public class FileRmDatasourceService implements DataProxy<FileRmDatasource> {
 }
-

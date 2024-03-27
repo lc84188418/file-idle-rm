@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @create 2023-06-12 23:09:32
  */
 @Data
-@TableName("user")
+@TableName("user2")
 public class User implements Serializable {
     @TableId(type = IdType.AUTO)
     private Integer id;
